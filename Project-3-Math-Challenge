@@ -1,0 +1,64 @@
+import random
+import time
+
+OPERATORS = ["+", "-", "*"] 
+MIN_OPERAND = 3
+MAX_OPERAND = 12
+TOTAL_PROBLEMS = 10
+
+def generate_problem():
+    left = random.randint(MIN_OPERAND, MAX_OPERAND)
+    right = random.randint(MIN_OPERAND, MAX_OPERAND)
+    operator = random.choice(OPERATORS)
+    
+    expr = f"{left} {operator} {right}" 
+    
+    if operator == "+":
+        answer = left + right
+    elif operator == "-":
+        answer = left - right
+    else:
+        answer = left * right
+    
+    return expr, answer
+
+print("=" * 50)
+print("🎯 WELCOME TO THE TIMED MATH CHALLENGE!")
+print("=" * 50)
+print(f"\nYou have {TOTAL_PROBLEMS} problems to solve.")
+print("Answer them as fast as you can!\n")
+
+input("Press ENTER to start...")
+start_time = time.time()
+
+for i in range(TOTAL_PROBLEMS):
+    expr, answer = generate_problem()
+    
+    while True:
+        try:
+            guess = input(f"\nProblem #{i+1}: {expr} = ")
+            if int(guess) == answer:
+                print("✅ Correct!")
+                break
+            else:
+                print("❌ Wrong! Try again.")
+        except ValueError:
+            print("⚠️ Please enter a number!")
+
+end_time = time.time()
+total_time = round(end_time - start_time, 2)
+
+print("\n" + "=" * 50)
+print("🎉 CHALLENGE COMPLETE! 🎉")
+print("=" * 50)
+print(f"\n✅ You solved {TOTAL_PROBLEMS} problems!")
+print(f"⏱️  Time: {total_time} seconds")
+print("=" * 50)
+
+if total_time < 30:
+    print("🏆 AMAZING! You're a math wizard!")
+elif total_time < 60:
+    print("🌟 Great job! Really good speed!")
+else:
+    print("💪 Good work! Try again to beat your time!")
+print("=" * 50)
